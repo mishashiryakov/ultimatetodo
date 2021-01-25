@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 const PORT = 3005;
 
-mongoose.connect('mongodb+srv://misha:misha@cluster0.stw05.mongodb.net/learnMlab?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://misha:misha@cluster0.stw05.mongodb.net/ultimatetodo?retryWrites=true&w=majority', { useUnifiedTopology: true,  useNewUrlParser: true });
 
 app.use(cors());
 
