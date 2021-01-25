@@ -10,7 +10,7 @@ export default createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#fff'
+      main: '#000'
     },
     secondary: blue,
     error: red,
