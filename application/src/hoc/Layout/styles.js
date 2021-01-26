@@ -3,6 +3,7 @@ export const styles = theme => ({
     height: '100vh',
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: theme.palette.background.main
   },
 
   main: {

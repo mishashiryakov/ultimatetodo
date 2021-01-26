@@ -10,6 +10,7 @@ const Login = ({ classes, data = {} }) => {
   const { userLogin = [] } = data;
 
   const inputHandler = (e) => {
+    console.log(e.target.value)
     e.target.name === 'username' ? setUsername(e.target.value) : setPassword(e.target.value)
   }
 
@@ -30,14 +31,14 @@ const Login = ({ classes, data = {} }) => {
 
     return (
         <div className={classes.container}>
-            <div>
                 <TextField
                     className={classes.textField}
-                    label={"Login"}
+                    label={"Username"}
                     onChange={inputHandler}
                     name="username"
                     defaultValue=''
                     autoComplete="false"
+                    variant="outlined"
                 />
                 <TextField
                     className={classes.textField}
@@ -47,14 +48,23 @@ const Login = ({ classes, data = {} }) => {
                     name="password"
                     defaultValue=''
                     autoComplete="false"
+                    variant="outlined"
                 />
-            </div>
-
-            <div>
-                <Button onClick={loginHandler}>Login</Button>
-                <Button>Register</Button>
-            </div>
-
+                <Button 
+                  onClick={loginHandler}
+                  variant="contained"
+                  color="primary"
+                  className={classes.logInButtons}
+                >
+                  Log in
+                </Button>
+                <Button
+                 variant="contained"
+                 color="secondary"
+                 className={classes.logInButtons}
+                >
+                  Register
+                </Button>
           {
             logged &&
             <div style={{width: 500, height: 500, backgroundColor: 'yellow'}}>

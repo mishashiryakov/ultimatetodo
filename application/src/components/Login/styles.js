@@ -1,14 +1,28 @@
 export const styles = theme => ({
     container: {
-        width: 500,
-        backgroundColor: '#000000'
+        width: 400,
+        height: 300,
+        borderRadius: 8,
+        backgroundColor: '#fff',
+        boxShadow: theme.shadows[4],
+        padding: '25px 25px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        // alignItems: 'center'
+    },
+    inputUserInfoBlock: {
+
     },
     textField: {
-        width: 200,
-        border: '1px solid grey',
         borderRadius: 5,
-        color: 'black',
-        marginRight: 15,
-        backgroundColor: theme.secondary,
+        marginBottom: 15,
+        width: '100%'
+    },
+    logInButtons: {
+        color: '#fff',
+        width: '100%',
+        marginBottom: 15,
+        height: 50
     }
 });

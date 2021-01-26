@@ -1,18 +1,22 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
 
 export default createMuiTheme({
   typography: {
     useNextVariants: true,
-    color: '#000',
+    color: '#fff',
   },
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
-      main: '#000'
+      main: '#1976d2'
     },
-    secondary: blue,
+    secondary: {
+      main: '#42b72a',
+    },
+    background: {
+      main: '#f7f7f7'
+    },
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
