@@ -49,6 +49,16 @@ const Query = new GraphQLObjectType({
 			return Users.find({});
 		}
 	},
+	userLogin: {
+		type: new GraphQLList(UserType),
+		args: {
+			username: { type: GraphQLString },
+			password: { type: GraphQLString },
+		},
+		resolve(parent, { username, password }) {
+			return Users.find({ username: { $regex: username, $options: "i" }, password });
+		}
+	},
 	}
 });
 

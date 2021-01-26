@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import withHocs from './LoginHoc';
+import {gql} from 'apollo-boost';
 
 const Login = ({ classes, data = {} }) => {
   const [username, setUsername] = useState('');
@@ -10,7 +11,6 @@ const Login = ({ classes, data = {} }) => {
   const { userLogin = [] } = data;
 
   const inputHandler = (e) => {
-    console.log(e.target.value)
     e.target.name === 'username' ? setUsername(e.target.value) : setPassword(e.target.value)
   }
 
@@ -23,7 +23,6 @@ const Login = ({ classes, data = {} }) => {
 
   useEffect(() => {
     if (userLogin.length) {
-      console.log(userLogin)
       setLogged(true);
     }
   }, [username, password, userLogin]);
