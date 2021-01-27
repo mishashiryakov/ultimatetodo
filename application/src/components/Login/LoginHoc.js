@@ -8,7 +8,9 @@ import { styles } from './styles';
 
 const withGraphQL = compose(
   graphql(userLoginQuery, {
-    options: () => ({})
+    options: ({ username = '', password = '' }) => ({
+      variables: { username, password }
+    })
   })
 )
 

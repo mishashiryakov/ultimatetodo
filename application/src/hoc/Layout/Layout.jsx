@@ -1,19 +1,14 @@
 import React from 'react';
 import withHocs from './LayoutHoc';
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import EventOutlinedIcon from '@material-ui/icons/EventOutlined';
-import TimerOutlinedIcon from '@material-ui/icons/TimerOutlined';
-import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
-
+import { Drawer, Button, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ExitToAppOutlined,StarBorderOutlined, TimerOutlined, EventOutlined, HomeOutlined  } from '@material-ui/icons'
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/actions/auth';
 
 const Layout = ({ classes, theme, children }) => {
+  const dispatch = useDispatch();
+  const { isLogged } = useSelector(store => store.auth)
 
   const [state, setState] = React.useState({
     top: false,
@@ -43,52 +38,60 @@ const Layout = ({ classes, theme, children }) => {
     >
       <List>
         <ListItem button key={'My day'}>
-            <ListItemIcon><HomeOutlinedIcon/></ListItemIcon>
+            <ListItemIcon><HomeOutlined/></ListItemIcon>
             <ListItemText primary={'My day'}/>
         </ListItem>
 
         <ListItem button key={'Calendar'}>
-            <ListItemIcon><EventOutlinedIcon/></ListItemIcon>
+            <ListItemIcon><EventOutlined/></ListItemIcon>
             <ListItemText primary={'Calendar'}/>
         </ListItem>
 
         <ListItem button key={'Tomato Timer'}>
-            <ListItemIcon><TimerOutlinedIcon/></ListItemIcon>
+            <ListItemIcon><TimerOutlined/></ListItemIcon>
             <ListItemText primary={'Tomato Timer'}/>
         </ListItem>
 
         <ListItem button key={'Starred'}>
-            <ListItemIcon><StarBorderOutlinedIcon/></ListItemIcon>
+            <ListItemIcon><StarBorderOutlined/></ListItemIcon>
             <ListItemText primary={'Starred'}/>
         </ListItem>
 
+        <ListItem button key={'Logout'} onClick={() => dispatch(logout())}>
+          <ListItemIcon><ExitToAppOutlined/></ListItemIcon>
+          <ListItemText primary={'Logout'}/>
+        </ListItem>
+
+
 
       </List>
-      
-      
     </div>
   );
 
     return (
       <div className={classes.layout}>
 
-      <div>
-        
+      {
+        isLogged &&
+        <div>
+
           <React.Fragment key={anchor}>
             <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
             <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
               {list(anchor)}
             </Drawer>
           </React.Fragment>
-        
-      </div>
+
+        </div>
+      }
+
 
         <main className={classes.main}>
           { children }
         </main>
       </div>
     )
-  
+
 };
 
 export default withHocs(Layout);
