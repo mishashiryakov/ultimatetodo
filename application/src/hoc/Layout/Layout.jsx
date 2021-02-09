@@ -2,9 +2,11 @@ import React from 'react';
 import withHocs from './LayoutHoc';
 import clsx from 'clsx';
 import { Drawer, Button, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { ExitToAppOutlined,StarBorderOutlined, TimerOutlined, EventOutlined, HomeOutlined  } from '@material-ui/icons'
+import { ExitToAppOutlined,StarBorderOutlined, TimerOutlined, EventOutlined, HomeOutlined  } from '@material-ui/icons';
+import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/auth';
+
 
 const Layout = ({ classes, theme, children }) => {
   const dispatch = useDispatch();
@@ -71,19 +73,33 @@ const Layout = ({ classes, theme, children }) => {
     return (
       <div className={classes.layout}>
 
+
+{
+      isLogged &&
+      
+        <div className={classes.header}>
+          
+          <Button onClick={toggleDrawer(anchor, true)}><MenuOutlinedIcon/></Button>
+        </div>
+
+      }
+
       {
         isLogged &&
-        <div>
+          <div>
 
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-            <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
+            <React.Fragment key={anchor}>
+              
+              <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+                {list(anchor)}
+              </Drawer>
+            </React.Fragment>
 
-        </div>
+          </div>
+        
       }
+
+
 
 
         <main className={classes.main}>

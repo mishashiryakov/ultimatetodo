@@ -8,7 +8,7 @@ export const styles = theme => ({
   main: {
     display: 'flex',
     flexDirection: 'column',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1,
   },
@@ -18,4 +18,11 @@ export const styles = theme => ({
   fullList: {
     width: 'auto',
   },
+  header: {
+    height: 50,
+    width: '100vw',
+    backgroundColor: theme.palette.primary.main,
+    display: 'flex',
+    alignItems: 'center'
+  }
 });

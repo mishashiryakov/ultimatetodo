@@ -1,44 +1,41 @@
-import React, {useEffect, useState} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React, { useState } from 'react';
+import {TextField, Button} from '@material-ui/core';
 import withHocs from './LoginHoc';
-import { authUser } from '../../redux/actions/auth';
-import { useDispatch } from 'react-redux';
+import GetUser from './GetUser';
+import RegisterModal from './RegisterModal'
+import Register from './Register'
 
-const Login = ({ classes, history, data = {} }) => {
-  const dispatch = useDispatch();
+const Login = ({ classes, history }) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { userLogin = [] } = data;
+  const [doQuery, setDoQuery] = useState(true);
+  const [activeModal, setActiveModal]  = useState(true) 
 
   const inputHandler = (e) => {
+    setDoQuery(true);
     e.target.name === 'username' ? setUsername(e.target.value) : setPassword(e.target.value)
   }
 
   const loginHandler = () => {
-    data.fetchMore({
-      variables: { username, password },
-      updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
-    })
+      setDoQuery(false);
   }
-
-  useEffect(() => {
-    if (userLogin.length && username) {
-      dispatch(authUser({username, password, isLogged: true}));
-      history.push({
-        pathname: '/'
-      })
-    }
-  }, [userLogin]);
 
     return (
         <div className={classes.container}>
+                <GetUser 
+                  doQuery={doQuery} 
+                  username={username} 
+                  password={password} 
+                  history={history}
+                  styles={classes.userError}
+                  />                
                 <TextField
                     className={classes.textField}
                     label={"Username"}
-                    onChange={inputHandler}
                     name="username"
                     defaultValue=''
+                    onChange={inputHandler}
                     autoComplete="false"
                     variant="outlined"
                 />
@@ -46,9 +43,9 @@ const Login = ({ classes, history, data = {} }) => {
                     className={classes.textField}
                     label={"Password"}
                     type="password"
-                    onChange={inputHandler}
                     name="password"
                     defaultValue=''
+                    onChange={inputHandler}
                     autoComplete="false"
                     variant="outlined"
                 />
@@ -67,10 +64,17 @@ const Login = ({ classes, history, data = {} }) => {
                  variant="contained"
                  color="secondary"
                  className={classes.logInButtons}
+                 onClick={() => setActiveModal(true)}
                 >
                   Register
                 </Button>
-
+                <RegisterModal 
+                  activeModal={activeModal} 
+                  setActiveModal={setActiveModal} 
+                  classes={classes}
+                >
+                    <Register classes={classes} />
+                </RegisterModal>
         </div>
     )
 }
