@@ -37,10 +37,10 @@ const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
 	user: {
-		type: UserType,
-		args: { id: { type: GraphQLID } },
-		resolve(parent, { id }) {
-			return Users.findById(id);
+		type: new GraphQLList(UserType),
+		args: { username: { type: GraphQLString } },
+		resolve(parent, { username }) {
+			return Users.find({username})
 		}
 	},
 	users: {

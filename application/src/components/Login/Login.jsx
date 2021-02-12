@@ -10,10 +10,11 @@ const Login = ({ classes, history }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [doQuery, setDoQuery] = useState(true);
-  const [activeModal, setActiveModal]  = useState(true) 
+  const [activeModal, setActiveModal]  = useState(false) 
 
   const inputHandler = (e) => {
     setDoQuery(true);
+    console.log('new name')
     e.target.name === 'username' ? setUsername(e.target.value) : setPassword(e.target.value)
   }
 
@@ -23,13 +24,15 @@ const Login = ({ classes, history }) => {
 
     return (
         <div className={classes.container}>
+
                 <GetUser 
                   doQuery={doQuery} 
                   username={username} 
                   password={password} 
                   history={history}
                   styles={classes.userError}
-                  />                
+                  />      
+
                 <TextField
                     className={classes.textField}
                     label={"Username"}
@@ -39,6 +42,7 @@ const Login = ({ classes, history }) => {
                     autoComplete="false"
                     variant="outlined"
                 />
+
                 <TextField
                     className={classes.textField}
                     label={"Password"}
@@ -56,7 +60,6 @@ const Login = ({ classes, history }) => {
                   color="primary"
                   className={classes.logInButtons}
                 >
-
                   Log in
                 </Button>
 
@@ -68,12 +71,13 @@ const Login = ({ classes, history }) => {
                 >
                   Register
                 </Button>
+
                 <RegisterModal 
                   activeModal={activeModal} 
                   setActiveModal={setActiveModal} 
                   classes={classes}
                 >
-                    <Register classes={classes} />
+                    <Register classes={classes} history={history} />
                 </RegisterModal>
         </div>
     )

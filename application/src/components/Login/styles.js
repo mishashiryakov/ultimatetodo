@@ -59,7 +59,28 @@ export const styles = theme => ({
         borderRadius: 12,
         backgroundColor: 'white',
         width: 420,
+        height: 350,
         transition: '0.3s',
-        transform: 'scale(0.5)'
-    }
+        transform: 'scale(0.5)',
+        
+    },
+    closeIcon: {
+        position: 'fixed',
+        top: '-25px',
+        right: '-25px',
+        cursor: 'pointer'
+    },
+    register__content: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around'
+    },
+    margin: {
+        margin: 10,
+    },
+    textField2: {
+        width: '25ch',
+      },
 });
