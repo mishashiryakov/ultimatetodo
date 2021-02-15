@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 
-export default createMuiTheme({
+const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
     color: '#fff',
@@ -21,5 +21,7 @@ export default createMuiTheme({
     contrastThreshold: 3,
     tonalOffset: 0.2,
     contrastText: '#fff',
-  }
+  },
 });
+
+export default theme;
