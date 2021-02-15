@@ -48,7 +48,7 @@ const CheckExistingUsers = ({username, password, doCheck, history, classes}) => 
             addUser({ variables: {username, password} });
             dispatch(authUser({username, password, isLogged: true}));
             history.push({
-                    pathname: '/'
+                    pathname: '/tasks/myday'
             })
         }
     }

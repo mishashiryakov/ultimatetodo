@@ -36,7 +36,7 @@ const GetUser = ({username, password, doQuery, history, styles }) => {
             dispatch(authUser({username, password, isLogged: true}));
 
             history.push({
-                    pathname: '/'
+                    pathname: '/tasks/myday'
             })
         } else {
             console.log('else')
