@@ -74,7 +74,7 @@ const Layout = ({ classes, theme, children }) => {
       <div className={classes.layout}>
 
 
-{
+      {
       isLogged &&
       
         <div className={classes.header}>
@@ -96,12 +96,7 @@ const Layout = ({ classes, theme, children }) => {
             </React.Fragment>
 
           </div>
-        
       }
-
-
-
-
         <main className={classes.main}>
           { children }
         </main>

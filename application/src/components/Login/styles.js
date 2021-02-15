@@ -17,7 +17,11 @@ export const styles = theme => ({
     textField: {
         borderRadius: 5,
         marginBottom: 15,
-        width: '100%'
+        width: '100%',
+        [theme.breakpoints.down('md')]: {
+            backgroundColor: 'red',
+          }
+        
     },
     logInButtons: {
         color: '#fff',
