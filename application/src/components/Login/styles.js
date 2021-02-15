@@ -18,10 +18,6 @@ export const styles = theme => ({
         borderRadius: 5,
         marginBottom: 15,
         width: '100%',
-        [theme.breakpoints.down('md')]: {
-            backgroundColor: 'red',
-          }
-        
     },
     logInButtons: {
         color: '#fff',

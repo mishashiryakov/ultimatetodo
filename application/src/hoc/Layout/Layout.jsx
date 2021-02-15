@@ -40,35 +40,35 @@ const Layout = ({ classes, theme, children }) => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <Link to='/tasks/myday'>
+        <Link to='/tasks/myday' className={classes.link}>
           <ListItem button key={'My day'}>
               <ListItemIcon><HomeOutlined/></ListItemIcon>
               <ListItemText primary={'My day'}/>
           </ListItem>
         </Link>
 
-        <Link to='/tasks/calendar'>
+        <Link to='/tasks/calendar' className={classes.link}>
           <ListItem button key={'Calendar'}>
               <ListItemIcon><EventOutlined/></ListItemIcon>
               <ListItemText primary={'Calendar'}/>
           </ListItem>
         </Link>
         
-        <Link to='/tasks/tomatotimer'>
+        <Link to='/tasks/tomatotimer' className={classes.link}>
           <ListItem button key={'Tomato Timer'}>
               <ListItemIcon><TimerOutlined/></ListItemIcon>
               <ListItemText primary={'Tomato Timer'}/>
           </ListItem>
         </Link>
 
-        <Link to='/tasks/starred'>
+        <Link to='/tasks/starred' className={classes.link}>
           <ListItem button key={'Starred'}>
               <ListItemIcon><StarBorderOutlined/></ListItemIcon>
               <ListItemText primary={'Starred'}/>
           </ListItem>
         </Link>
 
-        <Link to='/login'>
+        <Link to='/login' className={classes.link}>
           <ListItem button key={'Logout'} onClick={() => dispatch(logout())}>
             <ListItemIcon><ExitToAppOutlined/></ListItemIcon>
             <ListItemText primary={'Logout'}/>
