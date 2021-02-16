@@ -40,7 +40,7 @@ const Query = new GraphQLObjectType({
 		type: new GraphQLList(UserType),
 		args: { username: { type: GraphQLString } },
 		resolve(parent, { username }) {
-			return Users.find({username})
+			return Users.find({username: { $regex: username, $options: "i" }})
 		}
 	},
 	users: {

@@ -24,5 +24,8 @@ export const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     display: 'flex',
     alignItems: 'center'
+  },
+  link: {
+    textDecoration: 'none'
   }
 });

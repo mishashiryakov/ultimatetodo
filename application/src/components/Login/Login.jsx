@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {TextField, Button} from '@material-ui/core';
 import withHocs from './LoginHoc';
 import GetUser from './GetUser';
-import RegisterModal from './RegisterModal'
+import ModalWindow from '../Modal/ModalWindow'
 import Register from './Register'
 
 const Login = ({ classes, history }) => {
@@ -72,13 +72,12 @@ const Login = ({ classes, history }) => {
                   Register
                 </Button>
 
-                <RegisterModal 
+                <ModalWindow 
                   activeModal={activeModal} 
-                  setActiveModal={setActiveModal} 
-                  classes={classes}
+                  setActiveModal={setActiveModal}
                 >
                     <Register classes={classes} history={history} />
-                </RegisterModal>
+                </ModalWindow>
         </div>
     )
 }
