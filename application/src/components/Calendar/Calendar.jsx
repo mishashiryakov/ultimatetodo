@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import * as calendar from './calendarCalc';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import ModalWindow from '../Modal/ModalWindow'
+import ModalWindow from '../Modal/ModalWindow';
+import TodoInfoCard from '../TodoCards/TodoInfoCard/TodoInfoCard'
 
 const Calendar = ({ classes, theme }) => {
 
@@ -13,9 +14,57 @@ const Calendar = ({ classes, theme }) => {
     const yearSelect = useRef(null);    
 
     const [date, setDate] = useState(new Date());
-    const currentDate = new Date();
     const [selectedDate, setSelectedDate] = useState(null);
-    const [activeModal, setActiveModal]  = useState(false);
+    const [activeModalTodoCreation, setActiveModalTodoCreation]  = useState(false);
+    const [activeModalTodoInfo, setActiveModalTodoInfo]  = useState(false);
+    const [selectedTodoInfo, setSelectedTodoInfo] = useState('')
+
+    const currentDate = new Date();
+    const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu' , 'Fri', 'Sat', 'Sun'];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const years = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021];
+
+
+    const todos = [
+        {
+            type: 'task',
+            year: '2021', 
+            month: '1', 
+            day: '19',
+            title: 'Купить хлеб',
+            backgroundColor: theme.palette.todo.task,
+            color: theme.typography.color
+        },
+        {
+            type: 'reminder',
+            year: '2021', 
+            month: '1', 
+            day: '18',
+            title: 'Встреча с Куцом',
+            backgroundColor: theme.palette.todo.reminder,
+            color: theme.typography.color
+        },
+        {
+            type: 'holiday',
+            year: '2021', 
+            month: '1', 
+            day: '14',
+            title: 'День влюблённых',
+            backgroundColor: theme.palette.todo.holiday,
+            color: theme.typography.color
+        }
+    ]
+
+    const openModalForCreation = (e) => {
+        if(e.target.id === 'todoList') {
+            setActiveModalTodoCreation(true)
+        }
+    }
+
+    const openModalWithSelectedTodoInfo = (todoInfo) => {
+        setSelectedTodoInfo(todoInfo)
+        setActiveModalTodoInfo(true)
+    }
 
     const handleSelectChange = (e) => {
         const date = new Date(yearSelect.current.value, monthSelect.current.value)
@@ -23,47 +72,18 @@ const Calendar = ({ classes, theme }) => {
     };                
 
     const handleDayClick = date => {
-        
         setSelectedDate(date);
     };
 
-    const weekDayNames = ['Mon', 'Tue', 'Wed', 'Thu' , 'Fri', 'Sat', 'Sun'];
-
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    const years = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021];
-
-    const yearGetter = () => {
-        return date.getFullYear();
-    }
-
-    const monthGetter = () => {
-        return date.getMonth();
-    }
-
     const handlePrevMonthButtonClick = () => {
-        setDate(new Date(yearGetter(), monthGetter() - 1));
+        setDate(new Date(date.getFullYear(), date.getMonth() - 1));
     };
 
     const handleNextMonthButtonClick = () => {
-        setDate(new Date(yearGetter(), monthGetter() + 1));
+        setDate(new Date(date.getFullYear(), date.getMonth() + 1));
     };
 
-    function WeekDaysRow() {
-        return (
-        <React.Fragment>
-            {weekDayNames.map((el, index) => {
-                return (
-                    <Grid key={index} className={classes.weekGridItem} item xs={1}>
-                        {el}
-                    </Grid> 
-                )
-            })}
-        </React.Fragment>
-        )
-    }
-
-    const monthData = calendar.getMonthData(yearGetter(), monthGetter());
+    const monthData = calendar.getMonthData(date.getFullYear(), date.getMonth());
 
     return (
         <div className={classes.root}>
@@ -79,7 +99,7 @@ const Calendar = ({ classes, theme }) => {
                     <select
                         ref={monthSelect}
                         className={classes.select}
-                        value={monthGetter()}
+                        value={date.getMonth()}
                         onChange={handleSelectChange}
                         name={'month'}
                     >
@@ -91,7 +111,7 @@ const Calendar = ({ classes, theme }) => {
                     <select
                         ref={yearSelect}
                         className={classes.select}
-                        value={yearGetter()}
+                        value={date.getFullYear()}
                         onChange={handleSelectChange}
                         name={'year'}
                     >
@@ -112,7 +132,13 @@ const Calendar = ({ classes, theme }) => {
             <div className={classes.calendar__block}>
 
                 <Grid className={classes.weekGridContainer} container item xs={12} spacing={1}>
-                    <WeekDaysRow />
+                    {weekDayNames.map((el, index) => {
+                        return (
+                            <Grid key={index} className={classes.weekGridItem} item xs={1}>
+                                {el}
+                            </Grid> 
+                        )
+                    })}
                 </Grid>
 
                 <Grid className={classes.gridContainer} container spacing={1}>
@@ -124,7 +150,6 @@ const Calendar = ({ classes, theme }) => {
                                 <Paper
                                     elevation={0}
                                     className={classes.paper}
-                                    onClick={() => setActiveModal(true)}
                                 >
                                     <div 
                                         onClick={() => handleDayClick(date)}
@@ -136,28 +161,65 @@ const Calendar = ({ classes, theme }) => {
                                     >
                                         {date.getDate()}
                                     </div>
+                                    <div
+                                        id='todoList' 
+                                        className={classes.todoList}
+                                        onClick={(e) => openModalForCreation(e)}
+                                    >
+                                        {todos.map((el, index) => 
+                                            calendar.areEqual(date, new Date(el.year, el.month, el.day)) && 
+                                                <div 
+                                                    className={`${classes.todo}`}
+                                                    key={index}
+                                                    id={'todo'}
+                                                    onClick={() => openModalWithSelectedTodoInfo(el)}
+                                                    style={
+                                                        {
+                                                            backgroundColor: el.backgroundColor,
+                                                            color: el.color
+                                                        }
+                                                    }
+                                                >
+                                                    {el.title}
+                                                </div>
+                                        )
+
+                                        }
+                                    </div>
                                 </Paper>
                             </Grid>
                             :
                             <Grid
-                                elevation={0}
                                 className={classes.gridItem} 
                                 item xs={1} 
                                 key={index}
                              >
-                                <Paper className={classes.paper}></Paper>
+                                <Paper 
+                                    elevation={0} 
+                                    className={classes.paper}
+                                >
+                                </Paper>
                             </Grid>
                         )}
                     </Grid>
                     )}
                 </Grid>
             </div>
+
             <ModalWindow
-                activeModal={activeModal} 
-                setActiveModal={setActiveModal}
+                activeModal={activeModalTodoCreation} 
+                setActiveModal={setActiveModalTodoCreation}
             >
                 {'123'}
             </ModalWindow>
+            
+            <ModalWindow
+                activeModal={activeModalTodoInfo} 
+                setActiveModal={setActiveModalTodoInfo}
+            >
+                <TodoInfoCard todoInfo={selectedTodoInfo} />
+            </ModalWindow>
+            
         </div>
     )
 }

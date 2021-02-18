@@ -3,6 +3,7 @@ const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLBoolean } = graphql;
 
 const Users = require('../models/user');
+const Todos = require('../models/todo');
 
 const UserType = new GraphQLObjectType({
 	name: 'User',
@@ -10,6 +11,32 @@ const UserType = new GraphQLObjectType({
 		id: { type: GraphQLID },
 		username: { type: GraphQLString },
 		password: { type: GraphQLString },
+		movies: {
+			type: new GraphQLList(TodoType),
+			resolve({ id }, args) {
+				return Movies.find({ userId: id });
+			},
+		},
+	}),
+});
+
+const TodoType = new GraphQLObjectType({
+	name: 'Todo',
+	fields: () => ({
+		id: { type: GraphQLID },
+		type: { type: GraphQLString },
+		year: { type: GraphQLString },
+		month: { type: GraphQLString },
+		day: { type: GraphQLString },
+		title: { type: GraphQLString },
+		backgroundColor: { type: GraphQLString },
+		color: { type: GraphQLString },
+		user: {
+			type: UserType,
+			resolve({ userId }, args) {
+				return Users.findById(userId);
+			}
+		}
 	}),
 });
 

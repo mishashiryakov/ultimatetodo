@@ -17,6 +17,11 @@ const theme = createMuiTheme({
     background: {
       main: '#f7f7f7'
     },
+    todo:{
+      task: '#0B53D5',
+      reminder: '#F25B4A',
+      holiday: '#CCC911'
+    },
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,

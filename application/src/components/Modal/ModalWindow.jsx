@@ -8,7 +8,7 @@ const ModalWindow = ({activeModal, setActiveModal, classes, children}) => {
             className={activeModal ? `${classes.modal} ${classes.active}` : classes.modal}
         >
             <div
-                className={activeModal ? `${classes.modal__content} ${classes.activeContent}` : classes.modal__content}  
+                className={activeModal ? `${classes.modal__content} ${classes.activeContent}` : classes.modal__content}
             >
                 <CloseIcon
                     onClick={() => setActiveModal(false)}

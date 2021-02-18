@@ -101,8 +101,24 @@ export const styles = theme => ({
         margin: '0 auto',
         boxSizing: 'border-box',
         userSelect: 'none',
+        marginBottom: '5px',
         '&:hover': {
           backgroundColor: theme.palette.background.main
         },
-      }
+      },
+      todoList: {
+        height: '80%'
+      },
+      todo: {
+        fontSize: '.7em',
+        marginBottom: '3px',
+        borderRadius: '4px',
+        height: '20px',
+        lineHeight: '20px',
+        userSelect: 'none',
+        cursor: 'pointer',
+        '&:hover': {
+          opacity: '.8'
+        },
+      },
 });
