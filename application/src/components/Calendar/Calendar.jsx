@@ -6,9 +6,28 @@ import * as calendar from './calendarCalc';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ModalWindow from '../Modal/ModalWindow';
-import TodoInfoCard from '../TodoCards/TodoInfoCard/TodoInfoCard'
+import TodoInfoCard from '../TodoCards/TodoInfoCard/TodoInfoCard';
+import { useApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 const Calendar = ({ classes, theme }) => {
+    // const cache = new InMemoryCache();
+    // const client = useApolloClient();
+
+    // const { user } = client.readQuery({
+    //     query: gql`
+    //       query userLoginQuery($username: String, $password: String) {
+    //         userLogin(username: $username, password: $password) {
+    //             id
+    //             username
+    //             password
+    //         }
+    //     }
+    //     `,
+    //     variables: {
+    //       id: 5,
+    //     },
+    //   });
+    
 
     const monthSelect =useRef(null);
     const yearSelect = useRef(null);    

@@ -11,10 +11,10 @@ const UserType = new GraphQLObjectType({
 		id: { type: GraphQLID },
 		username: { type: GraphQLString },
 		password: { type: GraphQLString },
-		movies: {
+		todos: {
 			type: new GraphQLList(TodoType),
 			resolve({ id }, args) {
-				return Movies.find({ userId: id });
+				return Todos.find({ userId: id });
 			},
 		},
 	}),

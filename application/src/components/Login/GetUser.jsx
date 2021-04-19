@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { authUser } from '../../redux/actions/auth';
-import { useDispatch } from 'react-redux';
+// import { useQuery, gql } from '@apollo/client';
+// import { authUser } from '../../redux/actions/auth';
+// import { useDispatch } from 'react-redux';
 
 
-const GET_USER = gql`
-    query userLoginQuery($username: String, $password: String) {
-        userLogin(username: $username, password: $password) {
-            id
-            username
-            password
-        }
-    }
-`;
+// const GET_USER = gql`
+//     query userLoginQuery($username: String, $password: String) {
+//         userLogin(username: $username, password: $password) {
+//             id
+//             username
+//             password
+//         }
+//     }
+// `;
 
 const GetUser = ({username, password, doQuery, history, styles }) => {
     
-    const [userNotFound, setUserNotFound] = useState(false)
+    // const [userNotFound, setUserNotFound] = useState(false)
 
     const { loading, error } = useQuery(GET_USER, {
         variables: { username, password },
